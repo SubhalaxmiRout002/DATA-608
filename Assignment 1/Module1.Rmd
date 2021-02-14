@@ -1,0 +1,177 @@
+---
+title: "DATA-INK (Visualization of fastest-growing companies in the US)"
+author: "Subhalaxmi Rout"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  prettydoc::html_pretty:
+    theme: architect
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+# Load libraries
+library(ggplot2)
+library(stats)
+library(DT)
+library(dplyr)
+library(psych)
+library(visdat)
+```
+
+
+**Principles of Data Visualization and Introduction to ggplot2**
+
+I have provided you with data about the 5,000 fastest growing companies in the US, as compiled by Inc. magazine. lets read this in:
+
+```{r}
+inc <- read.csv("https://raw.githubusercontent.com/charleyferrari/CUNY_DATA_608/master/module1/Data/inc5000_data.csv", header= TRUE)
+```
+
+And lets preview this data:
+
+```{r}
+DT::datatable(head(inc))
+```
+
+```{r}
+summary(inc)
+```
+
+Think a bit on what these summaries mean. Use the space below to add some more relevant non-visual exploratory information you think helps you understand this data:
+
+Lets have a look on datatypes and structure od data.
+
+```{r}
+# Insert your code here, create more chunks as necessary
+glimpse(inc)
+```
+
+State, City, Industry, and Name are in character type. Growth_Rate and Employees have a double type, and Rank has integer type.
+
+Describe() shows summary statistics of data. 
+
+```{r}
+DT::datatable(describe(inc))
+```
+
+Revenue looks very big nubmer, devide the revenue by $10^9$, the result will be in billion.
+
+```{r}
+inc$Revenue <- sapply(inc$Revenue, function(x) x / 1000000000)
+DT::datatable(head(inc))
+```
+
+Top 5 and bottom 5 revenue generated company
+
+```{r}
+DT::datatable(inc %>% arrange(desc(Revenue)) %>% head(5))
+DT::datatable(inc %>% arrange(desc(Revenue)) %>% tail(5))
+```
+
+Above table shows, Computer Hardware industry generate the high revenue and Business Products & Services generates the lowest revenue.
+
+## Question 1
+
+Create a graph that shows the distribution of companies in the dataset by State (ie how many are in each state). There are a lot of States, so consider which axis you should use. This visualization is ultimately going to be consumed on a 'portrait' oriented screen (ie taller than wide), which should further guide your layout choices.
+
+```{r, fig.height=10, fig.width=9}
+# Answer Question 1 here
+inc %>% group_by(State) %>% count() %>%
+  ggplot() + aes(x = reorder(State, n) , y = n, fill = n) +
+  ggtitle('Number of Companies by State') +
+  xlab('State') +
+  geom_bar(fill="#276678", stat = "identity") +
+  coord_flip() + geom_text(aes(label = n), size = 5,  hjust=-0.20) +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.title = element_text(hjust = 0.5, size = 25, colour = "#03506f"),
+        axis.title.y = element_text(size = 20, colour = "#03506f"),
+        axis.title.x=element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x=element_blank()
+        )
+```
+
+Above viz shows California and Texas has more companies than other states.  
+
+## Quesiton 2
+
+Lets dig in on the state with the 3rd most companies in the data set. Imagine you work for the state and are interested in how many people are employed by companies in different industries. Create a plot that shows the average and/or median employment by industry for companies in this state (only use cases with full data, use R's `complete.cases()` function.) In addition to this, your graph should show how variable the ranges are, and you should deal with outliers.
+
+From summary() we got to know there are 12 NAs present in Employees column. Use `complete.cases()` to get the data with out NAs. Below graph shows after apply `complete.cases()` no missing values present in data. 
+
+```{r}
+# Answer Question 2 here
+inc <- inc[complete.cases(inc),]
+visdat::vis_miss(inc)
+```
+
+```{r, fig.height=15, fig.width=15}
+data_NY <- inc %>% filter(State == "NY") 
+
+data_NY %>% ggplot() +
+  aes(x = reorder(Industry, Employees), y = Employees) +
+  geom_boxplot(color = '#03506f') +
+  ggtitle('Distribution of Employees by Industry') +
+  xlab('Industry') +
+  coord_flip() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.title = element_text(hjust = 0.5, size = 25, colour = "#03506f"),
+        axis.title.y = element_text(size = 20, colour = "#03506f"),
+        axis.title.x=element_blank(),
+        axis.text.y = element_text(size = 20)
+        )
+```
+
+Some industies have high outliers due to this visualisation is not clear. Lets exclued outliers above 1200.
+
+```{r message=FALSE, warning=FALSE, fig.height=10, fig.width=10}
+data_NY %>% ggplot() +
+  aes(x = reorder(Industry, Employees), y = Employees) +
+  stat_summary(fun.y=median, colour="darkred", geom = "point") +
+  geom_boxplot(color = '#03506f') +
+  ggtitle('Distribution of Employees by Industry') +
+  xlab('Industry') +
+  ylim(0,1200) +
+  coord_flip() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.title = element_text(hjust = 0.5, size = 20, colour = "#03506f"),
+        axis.title.y = element_text(size = 15, colour = "#03506f"),
+        axis.title.x=element_blank(),
+        axis.text.y = element_text(size = 15)
+        
+        )
+```
+
+## Question 3
+
+Now imagine you work for an investor and want to see which industries generate the most revenue per employee. Create a chart that makes this information clear. Once again, the distribution per industry should be shown.
+
+```{r, fig.height=15, fig.width=15}
+# Answer Question 3 here
+#visdat::vis_miss(inc)
+
+inc %>% group_by(Industry) %>%
+  mutate(Employee_Revenue = round((Revenue * 1e9) / Employees,0)) %>%
+  filter (Employee_Revenue <= 3000000) %>%
+  ggplot() + aes(x = reorder(Industry, Employee_Revenue), y = Employee_Revenue) +
+  geom_boxplot(color = "#03506f") +
+  coord_flip() +
+  ggtitle('Distribution of Revenue per Employee by Industry') +
+  xlab('Industry') + 
+  scale_y_continuous(breaks = c(0, 1000000, 2000000, 3000000),label = c("$0M", "$1M", "$2M", "$3M")) +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.title = element_text(hjust = 0.5, size = 35, colour = "#03506f"),
+        axis.title.y = element_text(size = 25, colour = "#03506f"),
+        axis.title.x=element_blank(),
+        axis.text.y = element_text(size = 20),
+        axis.text.x = element_text(size = 20)
+        )
+```
+
+The above boxplot shows, Computer Hardware, and Logistics and Transportation generates a high revenue per employee. However, Software and Engineering produce low revenue. (Note: Applied filter on Employee_Revenue less than or eaual to 3M due to large value outlier)
