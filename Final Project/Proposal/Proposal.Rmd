@@ -1,0 +1,76 @@
+---
+title: "Super Market Sales Analysis"
+sub-title: "Proposal"
+date: "03-28-2021"
+author: Subhalaxmi Rout
+output:
+  pdf_document: default
+  html_document: default
+  prettydoc::html_pretty: 
+    theme: tactile
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+### Data Source
+
+Supermarket sales data from Kaggle. 
+
+Link: https://www.kaggle.com/aungpyaeap/supermarket-sales
+
+### Description about dataset
+
+The growth of supermarkets in most populated cities are increasing and market competitions are also high. This data is about supermarket sales, and this data is for three diffrenet branch over the period of three months between January 2019 to March 2019.
+
+Branch A (Yangon): Yangon, also known as Rangoon, is the capital of the Yangon Region and the largest city of Myanmar. 
+
+Branch B (Mandalay): Mandalay is the second-largest city in Myanmar, after Yangon. 
+
+Branch C (Naypyidaw): Naypyidaw, officially spelled Nay Pyi Taw, is the capital and third-largest city of Myanmar.
+
+### Why I Choose this dataset?
+
+Create a supermarket sales dashboard, which will display the overall sales trend. The data set has various numeric fields such as Unit price, Quantity, Tax, COGS(Cost of goods sold) and gross income. Using these variables can see the overall sales of product types in different branches. This dashboard will show a high-level view of sales in different months, branches, and product types. 
+
+This dasboard will answer below question:
+
+* Which month was the busiest?
+* Who are buying proudcts - Male (%), Female (%)?
+* How many are the Members and Non Members?
+* What are the payment methods used by Customers?
+* Which Product type has more sales ?
+* Which branch has more sales?
+* What will be the future sales?
+
+
+### Visualization
+
+* Monthly Gross Profit
+* Product purchage by Gender, Payment Type, Customer type 
+* Total sales by Branch
+* Gross profit and unit sold by products
+* Future sales using ARIMA model
+
+#### Technology
+
+I like to create this dasboard using shiny app or Dash app. 
+
+Shiny > R or Dash > Python 
+
+
+
+
+
+
+
+
+
+
+
+
