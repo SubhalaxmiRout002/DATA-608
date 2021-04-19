@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Page</title>
+    <link rel="stylesheet" type="text/css" href="assignment5.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+</head>
+<body>
+   <div>
+    <h1>Assignment 5</h1>
+    <p>Subhalaxmi Rout</p>
+    <p>April 18, 2021</p>
+   
+    <div class="problem-section">
+        <h2>Beginner Problem 1</h2>
+        
+        <p>Create a function to reverse any word that you type in. This can be typed into either an input
+            box or an alert box, and then print the result in a box or on the webpage.</p>
+        
+        <p>Given below input text field, enter the text to see reverse text in the output text area.</p>
+        
+        <div>
+            Input Text: <input type="text" id="inputTextEle">
+        </div>
+            
+        <div>
+            <button onclick="reverseInputText()">Reverse Input Text</button>
+        </div> 
+        
+        
+        <div>
+            Output Text: <span id="outputTextEle"></span>
+        </div>
+    </div>
+   
+    <div class="problem-section">
+        <h2>Beginner Problem 2</h2>
+        <p>Create a function that takes an input number, and prints a table with the first 20 multiples of
+            the number, in order 5x4.
+        </p>
+        <div>
+            Input Number: <input type="text" id="inputNumberEle">
+        </div>
+        <div>
+            <button onclick="createMultiplesTable()">Create Multiples Table</button>
+        </div>
+        <div id="multiplesTableContainer">
+            
+        </div>
+    </div>
+
+    <div class="problem-section">
+        <h2>Intermediate Problem 1</h2>
+        <p>Write a function to load the presidents.csv data and display the data as an html table (you
+            may use a cdv parser from any available library, though I encourage you to try the d3 one).
+            Now that you have the presidents data loaded, write a function that will return that
+            president’s height & weight when you type it in. This can be typed into either an input box or
+            an alert box, and then print the result in a box or on the webpage.
+        </p>
+        <div>
+            <table id="presidentsDataTable">
+                <tr>
+                    <th>Name</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                </tr>
+            </table>
+        </div>
+        <div>
+            President's Name: <input type="text" id="inputPresidentNameEle">
+        </div>
+        <div>
+            <button onclick="showHeightAndWeight()">Show height and weight</button>
+        </div>
+        <div>
+            <div>Height: <span id="heightEle"></span></div>
+            <div>Wight: <span id="weightEle"></span></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assignment5.js"></script>
+    </div>  
+        
+</body>
+</html>
