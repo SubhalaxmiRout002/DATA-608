@@ -1,0 +1,77 @@
+---
+title: "project_information"
+author: "Subhalaxmi Rout"
+date: "05/19/2021"
+output: md_document
+---
+
+Title: Supermarket Sales Analysis
+
+Author: Subhalaxmi Rout 
+
+GitHub (link to the project): <https://github.com/SubhalaxmiRout002/DATA-608/tree/main/Final%20Project>
+
+Shinyapps (link to the deployed project): https://subhalaxmirout.shinyapps.io/Final/
+
+Course: Knowledge and Visual Analytics (Data 608)
+
+Purpose
+--------
+
+The purpose of the project is see the sales trend, profit trend, unit sold, sales by customer type, payment type and gender. 
+
+Visualization
+--------------
+
+The project includes the following aspects 
+
+-  Gross profit/Net sales on different products from January to March
+    
+-  Unit sold distribution by product type
+    
+-  Product type/Month/Branch distributed by Gender, Payment Type, Customer Type 
+
+Insights
+---------
+-  Gross profit: Branch C leads at Electronic, Fashion, and Food and beverages. Branch B leads at Health and beauty, and Home and lifestyle. Branch A and B leads at Sports and travel.
+
+-  Net sales: Electronic, Fashion, and Food and beverages branch C leads. Branch B leads at Health and beauty, Home and lifestyle, and Sports and travel.Branch A leads at Sports and travel.
+
+- Home and lifestyle, Food and beverages and Sports and travel are sold the most.
+
+-  Health & Beauty, and Electronic accessories Males are much more than Females whereas in Fashion accessories , Food & beverages and Sports & Travel Females are more and in the rest there is not much significant difference.
+
+-  Most used Payment type is Ewallet for Fashion, Health and beauty, Home and lifestyle. Cash for Sports and travel, and  Electronic accessories. Credit card for Food and beverages. Cash payments have the highest number of transaction. This could be a good opportunity to offer discounts for cash payment.
+
+-  In Branch B most of the customers are members, especially for Food and beverages, and Fashion accessories. In Branch A, most of the customers are normal, which allows us to think about advertising campaigns to achieve greater loyalty. 
+
+Limitations
+-----------
+
+Sales data not available for entire year. Dataset contains only 3 months and 3 branches. 
+
+Visualization Tools Used: Shiny App, Plotly, R
+
+Terminology Used:
+
+- Gross Profit - Gross Profit is the income a business has left, after paying all direct expenses related to the manufacturing of a product.
+
+- Net Sales - Net sales are total revenue.
+
+Data Sources
+-------------
+
+The dataset is one of the historical sales of supermarket company which has recorded in 3 different branches for 3 months data.
+
+Source: <https://www.kaggle.com/aungpyaeap/supermarket-sales>
+
+References
+-----------
+
+* <https://plotly.com/r/animations/>
+* <https://plotly.com/r/cumulative-animations/>
+* <https://stackoverflow.com/questions/36020146/how-can-i-order-the-months-chronologically-in-ggplot2-short-of-writing-the-month>
+* RShiny : https://www.youtube.com/watch?v=B52d5kKFpKc&t=315s
+
+
+
